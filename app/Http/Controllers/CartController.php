@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddToCartRequest;
+use App\Http\Requests\UpdateCartItemRequest;
 use App\Http\Resources\CartItemResource;
 use App\Jobs\CheckLowStockJob;
 use App\Models\CartItem;
@@ -38,6 +39,17 @@ class CartController extends Controller
 
 
         return new CartItemResource($item->load('product'));
+    }
+
+    public function update(UpdateCartItemRequest $request, CartItem $cartItem)
+    {
+        abort_if($cartItem->user_id !== auth()->id(), 403);
+
+        $cartItem->update([
+            'quantity' => $request->quantity,
+        ]);
+
+        return new CartItemResource($cartItem->load('product'));
     }
 
     public function destroy(CartItem $cartItem)
