@@ -18,7 +18,7 @@
 
 ## Setup
 ```bash
-git clone <repo>
+git clone [https://github.com/aminfahaad/ecommerce-cart]
 cd ecommerce-cart
 cp .env.example .env
 composer install
